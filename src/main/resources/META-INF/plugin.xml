@@ -1,0 +1,47 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>dev.graemeholliday.karate</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>Karate</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="graeme.holliday@pm.me" url="https://graemeholliday.dev">Graeme Holliday</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Autocomplete and syntax highlighting for Karate.
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType
+                name="Karate"
+                implementationClass="dev.graemeholliday.plugin.KarateFileType"
+                fieldName="INSTANCE"
+                language="Karate"
+                extensions="feature"/>
+        <lang.parserDefinition
+                language="Karate"
+                implementationClass="dev.graemeholliday.plugin.parser.KarateParserDefinition"/>
+        <lang.syntaxHighlighterFactory
+                language="Karate"
+                implementationClass="dev.graemeholliday.plugin.syntax.KarateSyntaxHighlighterFactory"/>
+    </extensions>
+    <actions>
+        <action id="dev.graemeholliday.plugin.KarateAction" class="dev.graemeholliday.plugin.KarateAction" text="Run Feature"
+                description="Run Karate feature" icon="dev.graemeholliday.plugin.KarateIcons.KARATE_ICON">
+            <add-to-group group-id="EditorPopupMenu.Run" anchor="first"/>
+            <add-to-group group-id="RunMenu" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>
